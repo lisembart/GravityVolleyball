@@ -19,7 +19,12 @@ public class PlayerController : MonoBehaviour
 
 	void Update () 
 	{
-		if(Input.GetKeyDown(KeyCode.Space))
+		if(Input.GetKeyDown(KeyCode.Space) && playerNumber == 1)
+		{
+			Jump();
+		}
+
+		if(Input.GetKeyDown(KeyCode.F) && playerNumber == 2)
 		{
 			Jump();
 		}
