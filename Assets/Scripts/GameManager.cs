@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour 
 {
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
 	[Header("Score Manager")]
 	public int leftPlayerScore;
 	public int rightPlayerScore;
+	public Text scoreText;
 
 	void Start () 
 	{
@@ -29,6 +31,8 @@ public class GameManager : MonoBehaviour
 		{
 			Application.LoadLevel(currentSceneNumber);	
 		}
+
+		scoreText.text = (leftPlayerScore + " - " + rightPlayerScore);
 	}
 
 	public void AddPoint(int whichPlayer)

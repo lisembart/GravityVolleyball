@@ -11,11 +11,15 @@ public class PlayerController : MonoBehaviour
 	public float tekmeFactor = 800f;
 	public GameObject tekmebacak;
 	GameManager gameManager;
+	private Quaternion orginalRotationValue;
+	private Vector3 orginalPositionValue;
 
 	void Start () 
 	{
 		playerRgbd = GetComponent<Rigidbody2D>();
 		gameManager = FindObjectOfType<GameManager>();
+		orginalRotationValue = transform.rotation;
+		orginalPositionValue = new Vector3(transform.position.x, transform.position.y, transform.position.y);
 	}
 	
 
@@ -46,7 +50,8 @@ public class PlayerController : MonoBehaviour
 
 	public void ResetPlayer()
 	{
-		
+		transform.rotation = orginalRotationValue;
+		transform.position = orginalPositionValue;
 	}
 
 	private void OnTriggerEnter2D(Collider2D col) 
