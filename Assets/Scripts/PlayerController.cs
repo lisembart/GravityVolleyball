@@ -10,10 +10,12 @@ public class PlayerController : MonoBehaviour
 	public float jumpFactor;
 	public float tekmeFactor = 800f;
 	public GameObject tekmebacak;
+	GameManager gameManager;
 
 	void Start () 
 	{
 		playerRgbd = GetComponent<Rigidbody2D>();
+		gameManager = FindObjectOfType<GameManager>();
 	}
 	
 
@@ -40,5 +42,18 @@ public class PlayerController : MonoBehaviour
 	{
 		this.motor2d.motorSpeed = this.tekmeFactor;
 		this.tekmebacak.GetComponent<HingeJoint2D>().motor = this.motor2d;
+	}
+
+	public void ResetPlayer()
+	{
+		
+	}
+
+	private void OnTriggerEnter2D(Collider2D col) 
+	{
+		if(col.gameObject.tag == "Ball")
+		{
+			col.gameObject.SendMessage("UnfreezeMovement");
+		}	
 	}
 }
