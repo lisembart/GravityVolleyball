@@ -6,6 +6,8 @@ public class Ball : MonoBehaviour
 {
 	private GameManager gameManager;
 	private Rigidbody2D ballRgbd;
+
+	public Vector2 moveDirection;
 	
 	[Header("Ball Spawn Positions")]
 	public Transform leftBallSpawnPosition;
@@ -20,11 +22,13 @@ public class Ball : MonoBehaviour
 
 	void Update () 
 	{
+		Physics2D.IgnoreLayerCollision(8,9); //Ignore collision with PlayerBarrier
 
 	}
 
 	private void OnCollisionEnter2D(Collision2D col) 
 	{
+		Debug.Log(col.gameObject.name);
 		if(col.gameObject.tag == "FloorLeft")
 		{
 			gameManager.SendMessage("AddPoint",1);
@@ -35,7 +39,7 @@ public class Ball : MonoBehaviour
 			gameManager.SendMessage("AddPoint",2);
 		}
 	}
-
+	
 	public void ResetBall(int whoScoredPoint)
 	{
 		ballRgbd.velocity = Vector2.zero;
@@ -59,6 +63,7 @@ public class Ball : MonoBehaviour
 	private void UnfreezeMovement()
 	{
 		ballRgbd.constraints = RigidbodyConstraints2D.None;
+		Debug.Log("UNFREEZING BALL");
 	}
 
 }

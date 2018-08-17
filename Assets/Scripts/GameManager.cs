@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 
 	[Header("Other Objects")]
 	public GameObject ball;
+	public float time = 1;
 
 	[Header("Score Manager")]
 	public int leftPlayerScore;
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour
 		}
 
 		scoreText.text = (leftPlayerScore + " - " + rightPlayerScore);
+		Time.timeScale = time;
 	}
 
 	public void AddPoint(int whichPlayer)

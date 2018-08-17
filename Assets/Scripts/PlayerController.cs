@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
 	GameManager gameManager;
 	private Quaternion orginalRotationValue;
 	private Vector3 orginalPositionValue;
+	public int hitForce;
 
 	void Start () 
 	{
@@ -60,5 +61,15 @@ public class PlayerController : MonoBehaviour
 		{
 			col.gameObject.SendMessage("UnfreezeMovement");
 		}	
+	}
+	
+	private void OnCollisionEnter2D(Collision2D col) 
+	{
+		if(col.gameObject.tag == "Ball")
+		{
+			col.gameObject.SendMessage("UnfreezeMovement");
+			//HERE ADD SOME ADDFORCE TO COLLISION BALL
+			Debug.Log("BALL IS KICKED");
+		}
 	}
 }
