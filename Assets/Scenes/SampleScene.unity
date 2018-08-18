@@ -1387,12 +1387,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerLeft: {fileID: 613102519}
-  playerRight: {fileID: 0}
+  playerRight: {fileID: 29701998}
   ball: {fileID: 1758405780}
   time: 1
   leftPlayerScore: 0
   rightPlayerScore: 0
   scoreText: {fileID: 974736073}
+  allowToAddPoint: 0
 --- !u!4 &798495451
 Transform:
   m_ObjectHideFlags: 0

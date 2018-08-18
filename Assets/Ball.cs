@@ -37,7 +37,6 @@ public class Ball : MonoBehaviour
 
 	private void OnCollisionEnter2D(Collision2D col) 
 	{
-		Debug.Log(col.gameObject.name);
 		if(col.gameObject.tag == "FloorLeft")
 		{
 			gameManager.SendMessage("AddPoint",1);

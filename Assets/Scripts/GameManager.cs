@@ -18,10 +18,12 @@ public class GameManager : MonoBehaviour
 	public int leftPlayerScore;
 	public int rightPlayerScore;
 	public Text scoreText;
+	public bool allowToAddPoint;
 
 	void Start () 
 	{
 		Time.timeScale = 1;
+		allowToAddPoint = true;
 	}
 	
 
@@ -34,28 +36,33 @@ public class GameManager : MonoBehaviour
 		}
 
 		scoreText.text = (leftPlayerScore + " - " + rightPlayerScore);
-		Time.timeScale = time;
+		//Time.timeScale = time;
 	}
 
 	public void AddPoint(int whichPlayer)
 	{
-		if(whichPlayer == 1)
+		if(allowToAddPoint)
 		{
-			rightPlayerScore++;
-			Time.timeScale = 0.2f;
-			StartCoroutine("SlowTime", 1);
-		} else if(whichPlayer == 2)
-		{
-			leftPlayerScore++;
-			Time.timeScale = 0.2f;
-			StartCoroutine("SlowTime", 2);
+			if(whichPlayer == 1)
+			{
+				rightPlayerScore++;
+				StartCoroutine("SlowTime", 1);
+				allowToAddPoint = false;
+			} else if(whichPlayer == 2)
+			{
+				leftPlayerScore++;
+				StartCoroutine("SlowTime", 2);
+				allowToAddPoint = false;
+			}
 		}
 	}
 
 	IEnumerator SlowTime(int whichPlayer)
 	{
-		yield return new WaitForSeconds(0.15f);
+		Time.timeScale = 0.3f;
+		yield return new WaitForSeconds(0.2f);
 		ReloadGame(whichPlayer);
+		ReloadSettings();
 	}
 
 	private void ReloadGame(int whoScoredPoint)
@@ -63,6 +70,12 @@ public class GameManager : MonoBehaviour
 		ball.SendMessage("ResetBall", whoScoredPoint);
 		playerLeft.SendMessage("ResetPlayer");
 		playerRight.SendMessage("ResetPlayer");
-		Time.timeScale = 1;		
+	}
+
+	private void ReloadSettings()
+	{
+		Time.timeScale = 1;
+		allowToAddPoint = true;
+		Debug.Log("RELOADING SETTINGS");
 	}
 }
