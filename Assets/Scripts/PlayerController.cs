@@ -6,8 +6,12 @@ public class PlayerController : MonoBehaviour
 {
 	public int playerNumber;
 	private Rigidbody2D playerRgbd;
+	private Collider2D playerCollider;
 	private JointMotor2D motor2d = default(JointMotor2D);
 	public float jumpFactor;
+	public LayerMask groundLayerMask;
+	public bool jump;
+	public bool grounded;
 	public float tekmeFactor = 800f;
 	public GameObject tekmebacak;
 	GameManager gameManager;
@@ -18,6 +22,7 @@ public class PlayerController : MonoBehaviour
 	void Start () 
 	{
 		playerRgbd = GetComponent<Rigidbody2D>();
+		playerCollider = GetComponent<Collider2D>();
 		gameManager = FindObjectOfType<GameManager>();
 		orginalRotationValue = transform.rotation;
 		orginalPositionValue = new Vector3(transform.position.x, transform.position.y, transform.position.y);
@@ -26,6 +31,8 @@ public class PlayerController : MonoBehaviour
 
 	void Update () 
 	{
+		grounded = Physics2D.IsTouchingLayers(playerCollider, groundLayerMask);
+
 		if(Input.GetKeyDown(KeyCode.Space) && playerNumber == 1)
 		{
 			Jump();
@@ -35,11 +42,20 @@ public class PlayerController : MonoBehaviour
 		{
 			Jump();
 		}
+
+		if(jump)
+		{
+			if(grounded)
+			{
+				playerRgbd.AddForce(new Vector2(base.transform.up.x, Mathf.Abs(base.transform.up.y)) * this.jumpFactor);
+				jump = false;
+			}
+		}
 	}
 
 	public void Jump()
 	{
-		playerRgbd.AddForce(new Vector2(base.transform.up.x, Mathf.Abs(base.transform.up.y)) * this.jumpFactor);
+		jump = true;
 		TekmeCek();
 	}
 
