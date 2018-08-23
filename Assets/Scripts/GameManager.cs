@@ -9,23 +9,48 @@ public class GameManager : MonoBehaviour
 	[Header("Player Objects")]
 	public GameObject playerLeft;
 	public GameObject playerRight;
+	public GameObject playerCpu;
 
 	[Header("Other Objects")]
 	public GameObject ball;
 	public float time = 1;
 
 	[Header("Score Manager")]
+	public bool endlessGame;
 	public int leftPlayerScore;
 	public int rightPlayerScore;
 	public Text scoreText;
+	public GameObject scoreTextObject;
 	public bool allowToAddPoint;
+
+	[Header("Match End")]
+	public GameObject matchEndCanvas;
+	public Text whoWonText;
+	public Text endScoreText;
 
 	void Start () 
 	{
 		Time.timeScale = 1;
 		allowToAddPoint = true;
+		playerLeft.SetActive(true);
 	}
-	
+
+	public void StartVsCpu()
+	{
+		playerCpu.SetActive(true);
+		playerRight.SetActive(false);
+	}
+
+	public void StartVsPlayer()
+	{
+		playerRight.SetActive(true);
+		playerCpu.SetActive(false);
+	}
+
+	public void SetEndless(bool endless)
+	{
+		endlessGame = endless;
+	}
 
 	void Update () 
 	{
@@ -36,7 +61,29 @@ public class GameManager : MonoBehaviour
 		}
 
 		scoreText.text = (leftPlayerScore + " - " + rightPlayerScore);
-		//Time.timeScale = time;
+
+		if(!endlessGame)
+		{
+			if(leftPlayerScore == 5 || rightPlayerScore == 5)
+			{
+				MatchEnd();
+			}
+		}
+	}
+
+	public void MatchEnd()
+	{
+		Debug.Log("Match ended");
+		ball.SetActive(false);
+		scoreTextObject.SetActive(false);
+		if(leftPlayerScore == 5)
+		{
+			whoWonText.text = "BLUE WINS";
+		} else 
+		{
+			whoWonText.text = "RED WINS";
+		}
+		endScoreText.text = scoreText.text;
 	}
 
 	public void AddPoint(int whichPlayer)
