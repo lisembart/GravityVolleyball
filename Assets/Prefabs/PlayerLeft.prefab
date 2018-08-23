@@ -192,6 +192,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 1
+  playerCollider: {fileID: 60438124733739964}
+  playerDownCollider: {fileID: 58352051439437924}
   jumpFactor: 1350
   groundLayerMask:
     serializedVersion: 2

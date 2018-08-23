@@ -6,7 +6,8 @@ public class EnemyController : MonoBehaviour
 {
 	public int playerNumber;
 	private Rigidbody2D playerRgbd;
-	private Collider2D playerCollider;
+	public Collider2D playerCollider;
+	public Collider2D playerDownCollider;
 	private JointMotor2D motor2d = default(JointMotor2D);
 	public float jumpFactor;
 	public LayerMask groundLayerMask;
@@ -21,7 +22,8 @@ public class EnemyController : MonoBehaviour
 	void Start () 
 	{
 		playerRgbd = GetComponent<Rigidbody2D>();
-		playerCollider = GetComponent<Collider2D>();
+		playerCollider = GetComponent<PolygonCollider2D>();
+		playerDownCollider = GetComponent<CircleCollider2D>();
 		gameManager = FindObjectOfType<GameManager>();
 		orginalRotationValue = transform.rotation;
 		orginalPositionValue = new Vector3(transform.position.x, transform.position.y, transform.position.y);
@@ -30,7 +32,8 @@ public class EnemyController : MonoBehaviour
 
 	void Update () 
 	{
-		grounded = Physics2D.IsTouchingLayers(playerCollider, groundLayerMask);
+		grounded = Physics2D.IsTouchingLayers(playerCollider, groundLayerMask)
+		 || Physics2D.IsTouchingLayers(playerDownCollider, groundLayerMask);
 
 		if(jump)
 		{

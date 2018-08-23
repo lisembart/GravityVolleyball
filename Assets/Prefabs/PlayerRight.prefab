@@ -48,7 +48,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4342162065154936
 Transform:
   m_ObjectHideFlags: 1
@@ -181,6 +181,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 2
+  playerCollider: {fileID: 60331704017983504}
+  playerDownCollider: {fileID: 58641583648562104}
   jumpFactor: 1350
   groundLayerMask:
     serializedVersion: 2
