@@ -1585,7 +1585,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerLeft: {fileID: 613102519}
-  playerRight: {fileID: 29701998}
+  playerRight: {fileID: 903050701}
   ball: {fileID: 1758405780}
   time: 1
   leftPlayerScore: 0
@@ -2040,7 +2040,7 @@ GameObject:
   - component: {fileID: 903050702}
   m_Layer: 0
   m_Name: EnemyPlayer
-  m_TagString: PlayerLeft
+  m_TagString: PlayerRight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2811,7 +2811,7 @@ GameObject:
   - component: {fileID: 1244243793}
   - component: {fileID: 1244243794}
   m_Layer: 0
-  m_Name: Raycast
+  m_Name: RaycastUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
