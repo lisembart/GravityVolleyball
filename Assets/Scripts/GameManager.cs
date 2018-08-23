@@ -28,6 +28,9 @@ public class GameManager : MonoBehaviour
 	public Text whoWonText;
 	public Text endScoreText;
 
+	[Header("Ads")]
+	private AdsManager AdsManager;
+
 	void Start () 
 	{
 		Time.timeScale = 1;
