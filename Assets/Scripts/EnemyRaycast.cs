@@ -25,6 +25,7 @@ public class EnemyRaycast : MonoBehaviour
 				StartCoroutine(CountdownToJump());
 			}
 		}
+		Debug.DrawLine (transform.position, rayHit.point,Color.red);
 	}
 
 	IEnumerator CountdownToJump()

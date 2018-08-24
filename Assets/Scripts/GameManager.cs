@@ -31,6 +31,9 @@ public class GameManager : MonoBehaviour
 	[Header("Ads")]
 	private AdsManager AdsManager;
 
+	[Header("Main Menu")]
+	public GameObject mainMenuObject;
+
 	void Start () 
 	{
 		Time.timeScale = 1;
@@ -42,12 +45,19 @@ public class GameManager : MonoBehaviour
 	{
 		playerCpu.SetActive(true);
 		playerRight.SetActive(false);
+		HideMenu();
 	}
 
 	public void StartVsPlayer()
 	{
 		playerRight.SetActive(true);
 		playerCpu.SetActive(false);
+		HideMenu();
+	}
+
+	private void HideMenu()
+	{
+		mainMenuObject.SetActive(false);
 	}
 
 	public void SetEndless(bool endless)
