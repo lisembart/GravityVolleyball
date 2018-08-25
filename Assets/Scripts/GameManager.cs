@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
 	public Text scoreText;
 	public GameObject scoreTextObject;
 	public bool allowToAddPoint;
+	private int currentGameMode;
 
 	[Header("Match End")]
 	public GameObject matchEndCanvas;
@@ -33,31 +34,48 @@ public class GameManager : MonoBehaviour
 
 	[Header("Main Menu")]
 	public GameObject mainMenuObject;
+	public GameObject gameObjects;
 
 	void Start () 
 	{
-		Time.timeScale = 1;
-		allowToAddPoint = true;
-		playerLeft.SetActive(true);
+		gameObjects.SetActive(false);
+		currentGameMode = 0;
 	}
 
 	public void StartVsCpu()
 	{
 		playerCpu.SetActive(true);
 		playerRight.SetActive(false);
-		HideMenu();
+		currentGameMode = 1;
+		SetGame();
 	}
 
 	public void StartVsPlayer()
 	{
 		playerRight.SetActive(true);
 		playerCpu.SetActive(false);
-		HideMenu();
+		currentGameMode = 2;
+		SetGame();
 	}
 
-	private void HideMenu()
+	private void SetGame()
 	{
 		mainMenuObject.SetActive(false);
+		gameObjects.SetActive(true);
+		Time.timeScale = 1;
+		allowToAddPoint = true;
+		playerLeft.SetActive(true);
+	}
+
+	public void Rematch()
+	{
+		if(currentGameMode == 1)
+		{
+			StartVsCpu();
+		} else if(currentGameMode == 2)
+		{
+			StartVsPlayer();
+		}
 	}
 
 	public void SetEndless(bool endless)
@@ -86,7 +104,7 @@ public class GameManager : MonoBehaviour
 
 	public void MatchEnd()
 	{
-		Debug.Log("Match ended");
+		matchEndCanvas.SetActive(true);
 		ball.SetActive(false);
 		scoreTextObject.SetActive(false);
 		if(leftPlayerScore == 5)
@@ -130,6 +148,7 @@ public class GameManager : MonoBehaviour
 		ball.SendMessage("ResetBall", whoScoredPoint);
 		playerLeft.SendMessage("ResetPlayer");
 		playerRight.SendMessage("ResetPlayer");
+		playerCpu.SendMessage("ResetPlayer");
 	}
 
 	private void ReloadSettings()
