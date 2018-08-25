@@ -12,7 +12,10 @@ public class GameManager : MonoBehaviour
 	public GameObject playerCpu;
 
 	[Header("Other Objects")]
+	public GameObject ballFollower;
 	public GameObject ball;
+	public Ball _ball;
+	public Transform ballFirstPos;
 	public float time = 1;
 
 	[Header("Score Manager")]
@@ -22,7 +25,7 @@ public class GameManager : MonoBehaviour
 	public Text scoreText;
 	public GameObject scoreTextObject;
 	public bool allowToAddPoint;
-	private int currentGameMode;
+	[SerializeField] private int currentGameMode;
 
 	[Header("Match End")]
 	public GameObject matchEndCanvas;
@@ -46,6 +49,7 @@ public class GameManager : MonoBehaviour
 	{
 		playerCpu.SetActive(true);
 		playerRight.SetActive(false);
+		CleanScore();
 		currentGameMode = 1;
 		SetGame();
 	}
@@ -54,8 +58,15 @@ public class GameManager : MonoBehaviour
 	{
 		playerRight.SetActive(true);
 		playerCpu.SetActive(false);
+		CleanScore();
 		currentGameMode = 2;
 		SetGame();
+	}
+
+	private void CleanScore()
+	{
+		leftPlayerScore = 0;
+		rightPlayerScore = 0;
 	}
 
 	private void SetGame()
@@ -65,6 +76,13 @@ public class GameManager : MonoBehaviour
 		Time.timeScale = 1;
 		allowToAddPoint = true;
 		playerLeft.SetActive(true);
+		matchEndCanvas.SetActive(false);
+		ball.SetActive(true);
+		ball.transform.position = ballFirstPos.transform.position;
+		scoreTextObject.SetActive(true);
+		_ball.ResetBallToDefault();
+		ballFollower.SetActive(true);
+		ReloadPlayers();
 	}
 
 	public void Rematch()
@@ -106,15 +124,23 @@ public class GameManager : MonoBehaviour
 	{
 		matchEndCanvas.SetActive(true);
 		ball.SetActive(false);
+		ballFollower.SetActive(false);
 		scoreTextObject.SetActive(false);
+		endScoreText.text = scoreText.text;
 		if(leftPlayerScore == 5)
 		{
 			whoWonText.text = "BLUE WINS";
+			whoWonText.color = Color.blue;	
+			endScoreText.color = Color.blue;	
+			Debug.Log("LEFT WON");
 		} else 
 		{
 			whoWonText.text = "RED WINS";
+			whoWonText.color = Color.red;
+			endScoreText.color = Color.red;
+			Debug.Log("RED WON");
 		}
-		endScoreText.text = scoreText.text;
+		Debug.Log("MATCH ENDED BLA BLA BLA ");
 	}
 
 	public void AddPoint(int whichPlayer)
@@ -146,6 +172,11 @@ public class GameManager : MonoBehaviour
 	private void ReloadGame(int whoScoredPoint)
 	{
 		ball.SendMessage("ResetBall", whoScoredPoint);
+		ReloadPlayers();
+	}
+
+	private void ReloadPlayers()
+	{
 		playerLeft.SendMessage("ResetPlayer");
 		playerRight.SendMessage("ResetPlayer");
 		playerCpu.SendMessage("ResetPlayer");

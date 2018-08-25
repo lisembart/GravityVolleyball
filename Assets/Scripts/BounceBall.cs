@@ -17,7 +17,6 @@ public class BounceBall : MonoBehaviour
 		if(col.gameObject.tag == "Ball")
 		{
 			col.gameObject.SendMessage("UnfreezeMovement");
-			Debug.Log("BALL IS KICKED");
 		}
 	}
 }

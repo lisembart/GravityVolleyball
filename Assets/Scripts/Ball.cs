@@ -77,6 +77,12 @@ public class Ball : MonoBehaviour
 		FreezeMovement();
 	}
 
+	public void ResetBallToDefault()
+	{
+		leftPlayerTouchCounter = 0;
+		rightPlayerTouchCounter = 0;
+	}
+
 	private void FreezeMovement()
 	{
 		ballRgbd.constraints = RigidbodyConstraints2D.FreezePositionX;
@@ -86,7 +92,6 @@ public class Ball : MonoBehaviour
 	private void UnfreezeMovement()
 	{
 		ballRgbd.constraints = RigidbodyConstraints2D.None;
-		Debug.Log("UNFREEZING BALL");
 	}
 
 }

@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
 	GameManager gameManager;
 	private Quaternion orginalRotationValue;
 	private Vector3 orginalPositionValue;
+	public Transform spawnPos;
 
 	void Start () 
 	{
@@ -70,6 +71,6 @@ public class PlayerController : MonoBehaviour
 	public void ResetPlayer()
 	{
 		transform.rotation = orginalRotationValue;
-		transform.position = orginalPositionValue;
+		transform.position = spawnPos.transform.position;
 	}
 }
