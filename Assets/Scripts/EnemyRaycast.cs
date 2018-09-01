@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyRaycast : MonoBehaviour 
 {
 	public EnemyController enemyController;
+	public GameObject enemyObject;
 	private bool canJump;
 
 	void Start () 
