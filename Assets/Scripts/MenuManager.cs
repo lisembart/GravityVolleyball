@@ -7,6 +7,7 @@ public class MenuManager : MonoBehaviour
 	public GameObject mainMenuObject;
 	public GameObject optionsMenuObject;
 	public GameObject infoMenuObject;
+	[SerializeField] private GameManager gameManager;
 
 	private void Start() 
 	{
@@ -19,12 +20,14 @@ public class MenuManager : MonoBehaviour
 	{
 		mainMenuObject.SetActive(false);
 		optionsMenuObject.SetActive(true);
+		gameManager.DestroyBanner();
 	}
 
 	public void GoToInfo()
 	{
 		mainMenuObject.SetActive(false);
 		infoMenuObject.SetActive(true);
+		gameManager.SendMessage("DestroyBanner");
 	}
 
 	public void BackToMainMenu()
@@ -38,5 +41,6 @@ public class MenuManager : MonoBehaviour
 			infoMenuObject.SetActive(false);
 		}
 		mainMenuObject.SetActive(true);
+		gameManager.SendMessage("RequestBanner");
 	}
 }

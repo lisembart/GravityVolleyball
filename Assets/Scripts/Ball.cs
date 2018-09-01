@@ -14,6 +14,7 @@ public class Ball : MonoBehaviour
 	[Header("Ball Spawn Positions")]
 	public Transform leftBallSpawnPosition;
 	public Transform rightBallSpawnPosition;
+	public AudioSource hitSource;
 
 	void Start () 
 	{
@@ -58,6 +59,8 @@ public class Ball : MonoBehaviour
 			leftPlayerTouchCounter = 0;
 			rightPlayerTouchCounter++;
 		}
+
+		hitSource.Play();
 	}
 
 	

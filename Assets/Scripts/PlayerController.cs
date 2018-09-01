@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
 	private Quaternion orginalRotationValue;
 	private Vector3 orginalPositionValue;
 	public Transform spawnPos;
+	public AudioSource jumpSource;
 
 	void Start () 
 	{
@@ -66,6 +67,7 @@ public class PlayerController : MonoBehaviour
 	{
 		this.motor2d.motorSpeed = this.tekmeFactor;
 		this.tekmebacak.GetComponent<HingeJoint2D>().motor = this.motor2d;
+		jumpSource.Play();
 	}
 
 	public void ResetPlayer()

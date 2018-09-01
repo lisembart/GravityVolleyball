@@ -19,6 +19,7 @@ public class EnemyController : MonoBehaviour
 	private Quaternion orginalRotationValue;
 	private Vector3 orginalPositionValue;
 	public Transform spawnPos;
+	public AudioSource jumpSource;
 
 	void Start () 
 	{
@@ -50,6 +51,7 @@ public class EnemyController : MonoBehaviour
 	{
 		jump = true;
 		TekmeCek();
+		jumpSource.Play();
 	}
 
 	private void TekmeCek()
