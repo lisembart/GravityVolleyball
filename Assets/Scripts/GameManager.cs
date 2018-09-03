@@ -30,6 +30,10 @@ public class GameManager : MonoBehaviour
 	public bool allowToAddPoint;
 	[SerializeField] private int currentGameMode;
 
+	[Header("Menu Manager")]
+	public GameObject optionsMenuObject;
+	public GameObject infoMenuObject;
+
 	[Header("Match End")]
 	public GameObject matchEndCanvas;
 	public GameObject whoWonTextBlueObject;
@@ -39,6 +43,7 @@ public class GameManager : MonoBehaviour
 	[Header("Ads")]
 	BannerView bannerView;
     InterstitialAd interstitial;
+	[SerializeField] private bool inGame;
 
 	[Header("Main Menu")]
 	public GameObject mainMenuObject;
@@ -48,7 +53,11 @@ public class GameManager : MonoBehaviour
 	{
 		gameObjects.SetActive(false);
 		currentGameMode = 0;
+		inGame = false;
 		StartAdsManager();
+		optionsMenuObject.SetActive(false);
+		infoMenuObject.SetActive(false);
+		mainMenuObject.SetActive(true);
 	}
 
 	private void StartAdsManager()
@@ -81,6 +90,7 @@ public class GameManager : MonoBehaviour
 		playerRight.SetActive(false);
 		CleanScore();
 		currentGameMode = 1;
+		inGame = true;
 		SetGame();
 	}
 
@@ -90,6 +100,7 @@ public class GameManager : MonoBehaviour
 		playerCpu.SetActive(false);
 		CleanScore();
 		currentGameMode = 2;
+		inGame = true;
 		SetGame();
 	}
 
@@ -114,6 +125,7 @@ public class GameManager : MonoBehaviour
 		ballFollower.SetActive(true);
 		whoWonTextBlueObject.SetActive(false);
 		whoWonTextRedObject.SetActive(false);
+		inGame = true;
 		ReloadPlayers();
 		HideBanner();
 	}
@@ -122,6 +134,7 @@ public class GameManager : MonoBehaviour
 	{
 		gameObjects.SetActive(false);
 		mainMenuObject.SetActive(true);
+		inGame = false;
 		RequestBanner();
 	}
 
@@ -167,6 +180,7 @@ public class GameManager : MonoBehaviour
 		ballFollower.SetActive(false);
 		scoreTextObject.SetActive(false);
 		endScoreText.text = scoreText.text;
+		inGame = false;
 		if(leftPlayerScore == 5)
 		{
 			whoWonTextBlueObject.SetActive(true);	
@@ -224,9 +238,40 @@ public class GameManager : MonoBehaviour
 		Debug.Log("RELOADING SETTINGS");
 	}
 
+		public void GoToOptions()
+	{
+		mainMenuObject.SetActive(false);
+		optionsMenuObject.SetActive(true);
+		HideBanner();
+	}
+
+	public void GoToInfo()
+	{
+		mainMenuObject.SetActive(false);
+		infoMenuObject.SetActive(true);
+		HideBanner();
+	}
+
+	public void BackToMainMenu()
+	{
+		if(optionsMenuObject.active = true)
+		{
+			optionsMenuObject.SetActive(false);
+		} 
+		if(infoMenuObject.active = true)
+		{
+			infoMenuObject.SetActive(false);
+		}
+		mainMenuObject.SetActive(true);
+		RequestBanner();
+	}
+
 	public void RequestBanner()
     {
-        bannerView.Show();
+		if(!inGame)
+		{
+			bannerView.Show();
+		}
     }
 
     public void HideBanner()
@@ -241,8 +286,11 @@ public class GameManager : MonoBehaviour
 
     public void RequestInterstitial()
     {
-        Debug.Log("Showing interstitial ad");
-        interstitial.Show();
+		if(!inGame)
+		{
+			Debug.Log("Showing interstitial ad");
+        	interstitial.Show();
+		}
     }
 
 #region Banner callback handlers

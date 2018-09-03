@@ -5,12 +5,10 @@ using UnityEngine;
 public class EnemyRaycast : MonoBehaviour 
 {
 	public EnemyController enemyController;
-	public GameObject enemyObject;
-	private bool canJump;
 
 	void Start () 
 	{
-		canJump = true;
+		enemyController.canJump = true;
 	}
 
 	void Update () 
@@ -19,19 +17,17 @@ public class EnemyRaycast : MonoBehaviour
 		if(rayHit.collider != null)
 		{
 			GameObject hitObject = rayHit.transform.gameObject;
-			if(hitObject.gameObject.name == "Ball" && canJump)
+			if(hitObject.gameObject.name == "Ball" && enemyController.canJump)
 			{
 				enemyController.Jump();
-				canJump = false;
-				StartCoroutine(CountdownToJump());
+				enemyController.canJump = false;
+				StartCoroutine(enemyController.CountdownToJump());
 			}
 		}
 		Debug.DrawLine (transform.position, rayHit.point,Color.red);
 	}
 
-	IEnumerator CountdownToJump()
-	{
-		yield return new WaitForSeconds(0.1f);
-		canJump = true;
-	}
+
+
+	
 }

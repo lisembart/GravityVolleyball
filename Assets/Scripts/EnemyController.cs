@@ -20,6 +20,7 @@ public class EnemyController : MonoBehaviour
 	private Vector3 orginalPositionValue;
 	public Transform spawnPos;
 	public AudioSource jumpSource;
+	public bool canJump;
 
 	void Start () 
 	{
@@ -64,5 +65,11 @@ public class EnemyController : MonoBehaviour
 	{
 		transform.rotation = orginalRotationValue;
 		transform.position = spawnPos.transform.position;
+	}
+
+	public IEnumerator CountdownToJump()
+	{
+		yield return new WaitForSeconds(0.1f);
+		canJump = true;
 	}
 }
